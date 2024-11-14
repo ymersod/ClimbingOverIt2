@@ -12,10 +12,10 @@ TagManager:
   - Water
   - UI
   - Body
-  - 
-  - 
-  - 
-  - 
+  - BodyPartsForClimb
+  - Ground
+  - Terrain
+  - Climbables
   - 
   - 
   - 

@@ -14,7 +14,6 @@ public class PhysicsRig : MonoBehaviour
 
     void FixedUpdate()
     {
-        // rigidbody.AddForce(force * Vector3.forward);
         bodyCollider.height = Mathf.Clamp(playerHead.localPosition.y, bodyHeightMin, bodyHeightMaxs);
         bodyCollider.center = new Vector3(playerHead.localPosition.x, bodyCollider.height / 2, playerHead.localPosition.z);
 

@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class Movement : MonoBehaviour
 {
     public float speed = 10f;
+    public float maxSpeed = 2f;
     public Rigidbody rigRb;
     public Transform mainCam;
     public InputActionReference leftHandMove;
@@ -11,29 +12,35 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {  
-        // Get input values for left and right hand movement
         Vector2 leftInput = leftHandMove.action.ReadValue<Vector2>();
         Vector2 rightInput = rightHandMove.action.ReadValue<Vector2>();
+        if(leftInput != Vector2.zero || rightInput != Vector2.zero){
+            Move(leftInput, rightInput);
+        }
+    }
 
-        // Combine inputs (or pick one if only one should control movement)
+    private void Move(Vector2 leftInput, Vector2 rightInput){
+
         Vector2 combinedInput = leftInput + rightInput;
 
-        // Use the camera's forward and right directions for movement
         Vector3 cameraForward = mainCam.forward;
         Vector3 cameraRight = mainCam.right;
 
-        // Zero out y components to keep movement on the horizontal plane
         cameraForward.y = 0;
         cameraRight.y = 0;
         
-        // Normalize directions after modifying them
         cameraForward.Normalize();
         cameraRight.Normalize();
 
-        // Calculate the movement direction based on camera orientation and input
         Vector3 movementDirection = (cameraForward * combinedInput.y + cameraRight * combinedInput.x).normalized;
 
-        // Apply movement to the Rigidbody in the calculated direction
-        rigRb.MovePosition(rigRb.position + movementDirection * speed * Time.fixedDeltaTime);
+        rigRb.AddForce(movementDirection * speed, ForceMode.VelocityChange);
+
+        if(rigRb.linearVelocity.x > maxSpeed){
+            rigRb.linearVelocity = new Vector3(maxSpeed, rigRb.linearVelocity.y, rigRb.linearVelocity.z);
+        }
+        if(rigRb.linearVelocity.z > maxSpeed){
+            rigRb.linearVelocity = new Vector3(rigRb.linearVelocity.x, rigRb.linearVelocity.y, maxSpeed);
+        }
     }
 }
