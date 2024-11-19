@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 4627866903275489576}
   m_Layer: 7
   m_Name: Hand Right
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,7 +63,7 @@ Transform:
   m_GameObject: {fileID: 3948103136833816479}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 19.369, y: 40.63, z: -25.43}
+  m_LocalPosition: {x: 19.369, y: 40.63, z: -25.042}
   m_LocalScale: {x: 0.01, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -100,7 +100,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 01cee6d8ea4cba94eb44f480eaa8f2b6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -182,14 +182,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cb93122305bde04598f6136375512b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRigidbody: {fileID: 0}
-  target: {fileID: 0}
-  rotFrequency: 100
-  rotDamping: 0.9
   frequency: 50
   damping: 1
+  rotFrequency: 100
+  rotDamping: 0.9
+  playerRigidbody: {fileID: 0}
+  target: {fileID: 0}
   climbForce: 1000
   climbDrag: 500
+  _isColliding: 0
 --- !u!1 &5850443985251839205
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +207,7 @@ GameObject:
   - component: {fileID: 6618559600988869780}
   m_Layer: 7
   m_Name: Hand Left
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -257,7 +258,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: cbb6aeb41a1a3a840b3b4e952c2ae75e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -339,11 +340,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cb93122305bde04598f6136375512b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRigidbody: {fileID: 0}
-  target: {fileID: 0}
-  rotFrequency: 100
-  rotDamping: 0.9
   frequency: 50
   damping: 1
+  rotFrequency: 100
+  rotDamping: 0.9
+  playerRigidbody: {fileID: 0}
+  target: {fileID: 0}
   climbForce: 1000
   climbDrag: 500
+  _isColliding: 0
