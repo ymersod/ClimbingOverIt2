@@ -16,6 +16,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private Gradient graddientSunsetToNight;
 
     [SerializeField] private Light globalLight;
+    [SerializeField] private float timeSpeed = 0.05f;
 
     public int minutes;
 
@@ -40,7 +41,7 @@ public class TimeManager : MonoBehaviour
 
         globalLight.transform.Rotate(Vector3.up, (1f / (1440f / 4f)) * 360f, Space.World);
 
-        if (tempSecond >= 0.8f)
+        if (tempSecond >= timeSpeed)
         {
             Minutes += 1;
             tempSecond = 0;
