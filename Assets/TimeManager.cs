@@ -38,8 +38,8 @@ public class TimeManager : MonoBehaviour
     public void Update()
     {
         tempSecond += Time.deltaTime;
-
-        globalLight.transform.Rotate(Vector3.up, (1f / (1440f / 4f)) * 360f, Space.World);
+        float degreesPerSecond = 360f / 4000f; // one rotation in 4000 seconds
+        globalLight.transform.Rotate(Vector3.up, degreesPerSecond * Time.deltaTime, Space.World);
 
         if (tempSecond >= timeSpeed)
         {
