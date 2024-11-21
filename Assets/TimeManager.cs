@@ -18,6 +18,8 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private Light globalLight;
     [SerializeField] private float timeSpeed = 0.05f;
 
+    [SerializeField] private AudioScript audioManager;
+
     public int minutes;
 
     public int Minutes
@@ -69,21 +71,25 @@ public class TimeManager : MonoBehaviour
         {
             StartCoroutine(LerpSkybox(skyboxNight, skyboxSunrise, 10f));
             StartCoroutine(LerpLight(graddientNightToSunrise, 10f));
+            audioManager.ChangeBackgroundMusic(audioManager.sunriseAudio);
         }
         else if (value == 10)
         {
             StartCoroutine(LerpSkybox(skyboxSunrise, skyboxDay, 10f));
             StartCoroutine(LerpLight(graddientSunriseToDay, 10f));
+            audioManager.ChangeBackgroundMusic(audioManager.dayAudio);
         }
         else if (value == 18)
         {
             StartCoroutine(LerpSkybox(skyboxDay, skyboxSunset, 10f));
             StartCoroutine(LerpLight(graddientDayToSunset, 10f));
+            audioManager.ChangeBackgroundMusic(audioManager.sunsetAudio);
         }
         else if (value == 22)
         {
             StartCoroutine(LerpSkybox(skyboxSunset, skyboxNight, 10f));
             StartCoroutine(LerpLight(graddientSunsetToNight, 10f));
+            audioManager.ChangeBackgroundMusic(audioManager.nightAudio);
         }
     }
 
