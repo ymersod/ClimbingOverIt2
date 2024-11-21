@@ -16,6 +16,9 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private Gradient graddientSunsetToNight;
 
     [SerializeField] private Light globalLight;
+    [SerializeField] private float timeSpeed = 0.05f;
+
+    [SerializeField] private AudioScript audioManager;
 
     public int minutes;
 
@@ -37,10 +40,10 @@ public class TimeManager : MonoBehaviour
     public void Update()
     {
         tempSecond += Time.deltaTime;
+        float degreesPerSecond = 360f / 4000f; // one rotation in 4000 seconds
+        globalLight.transform.Rotate(Vector3.up, degreesPerSecond * Time.deltaTime, Space.World);
 
-        globalLight.transform.Rotate(Vector3.up, (1f / (1440f / 4f)) * 360f, Space.World);
-
-        if (tempSecond >= 0.8f)
+        if (tempSecond >= timeSpeed)
         {
             Minutes += 1;
             tempSecond = 0;
@@ -68,21 +71,25 @@ public class TimeManager : MonoBehaviour
         {
             StartCoroutine(LerpSkybox(skyboxNight, skyboxSunrise, 10f));
             StartCoroutine(LerpLight(graddientNightToSunrise, 10f));
+            audioManager.ChangeBackgroundMusic(audioManager.sunriseAudio);
         }
         else if (value == 10)
         {
             StartCoroutine(LerpSkybox(skyboxSunrise, skyboxDay, 10f));
             StartCoroutine(LerpLight(graddientSunriseToDay, 10f));
+            audioManager.ChangeBackgroundMusic(audioManager.dayAudio);
         }
         else if (value == 18)
         {
             StartCoroutine(LerpSkybox(skyboxDay, skyboxSunset, 10f));
             StartCoroutine(LerpLight(graddientDayToSunset, 10f));
+            audioManager.ChangeBackgroundMusic(audioManager.sunsetAudio);
         }
         else if (value == 22)
         {
             StartCoroutine(LerpSkybox(skyboxSunset, skyboxNight, 10f));
             StartCoroutine(LerpLight(graddientSunsetToNight, 10f));
+            audioManager.ChangeBackgroundMusic(audioManager.nightAudio);
         }
     }
 
