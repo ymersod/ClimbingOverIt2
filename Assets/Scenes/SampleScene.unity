@@ -208,7 +208,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6f82da932509ddd48a8413d4b068d181, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 6f82da932509ddd48a8413d4b068d181, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -679,10 +679,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgroundAudio: {fileID: 141783567}
-  nightAudio: {fileID: 8300000, guid: 6e0215952e0412e42ac2b5489a667c45, type: 3}
-  sunriseAudio: {fileID: 8300000, guid: bda9df270fb7b1a449476378de10d46d, type: 3}
-  dayAudio: {fileID: 8300000, guid: 6f82da932509ddd48a8413d4b068d181, type: 3}
-  sunsetAudio: {fileID: 8300000, guid: 6084ccf14dfb3a047b7aec198d01947c, type: 3}
+  nightAudio: {fileID: 8300000, guid: 59b77be12629e194c87a04e79e63fe4a, type: 3}
+  sunriseAudio: {fileID: 8300000, guid: 269783ba19e4e3f4ba4aad074848d8df, type: 3}
+  dayAudio: {fileID: 8300000, guid: d21f74b1385017749ac74434a221c2d8, type: 3}
+  sunsetAudio: {fileID: 8300000, guid: 04167ac03cef57b4abe309e4d89936fb, type: 3}
 --- !u!1001 &496284045
 PrefabInstance:
   m_ObjectHideFlags: 0
