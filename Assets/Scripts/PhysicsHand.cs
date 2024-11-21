@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public class PhysicsHand : MonoBehaviour
 {
@@ -9,6 +11,10 @@ public class PhysicsHand : MonoBehaviour
     [SerializeField] float rotDamping = 0.9f;
     [SerializeField] Rigidbody playerRigidbody;
     [SerializeField] Transform target;
+    [SerializeField] TrackedPoseDriver trackedPoseDriver;
+    [SerializeField] SkinnedMeshRenderer skinnedMeshRenderer;
+    [SerializeField] MeshCollider meshColliderTrigger;
+    [SerializeField] MeshCollider meshCollider;
 
     [Space] 
     [Header("Springs")] 
@@ -17,22 +23,32 @@ public class PhysicsHand : MonoBehaviour
 
     Vector3 _previousPosition;
     Rigidbody _rigidbody;
+    MeshFilter _meshFilter;
     public bool _isColliding = false;
     
     void Start()
     {
         transform.position = target.position;
-        // transform.rotation = target.rotation;
+        transform.rotation = target.rotation;
         _rigidbody = GetComponent<Rigidbody>();
+        _meshFilter = GetComponent<MeshFilter>();
         _rigidbody.maxAngularVelocity = float.PositiveInfinity;
         _previousPosition = transform.position;
+
+        UpdateMesh();
     }
 
     void FixedUpdate()
     {
+        UpdateMesh();
         PIDMovement();
-        // PIDRotation();
+        PIDRotation();
+        FixRotation();
         if (_isColliding) HookesLaw();
+    }
+
+    private void FixRotation()
+    {
     }
 
     void PIDMovement()
@@ -53,7 +69,8 @@ public class PhysicsHand : MonoBehaviour
         float g = 1 / (1 + kd * Time.fixedDeltaTime + kp * Time.fixedDeltaTime * Time.fixedDeltaTime);
         float ksg = kp * g;
         float kdg = (kd + kp * Time.fixedDeltaTime) * g;
-        Quaternion q = target.rotation * Quaternion.Inverse(transform.rotation);
+        Quaternion q  = target.rotation * Quaternion.Inverse(transform.rotation);
+
         if (q.w < 0)
         {
             q.x = -q.x;
@@ -86,6 +103,15 @@ public class PhysicsHand : MonoBehaviour
         drag = drag < 0.03f ? 0.03f : drag;
         _previousPosition = transform.position;
         return drag;
+    }
+
+    void UpdateMesh()
+    {
+        Mesh backedMesh = new Mesh();
+        skinnedMeshRenderer.BakeMesh(backedMesh);
+        meshCollider.sharedMesh = backedMesh;
+        meshColliderTrigger.sharedMesh = backedMesh;
+        _meshFilter.mesh = backedMesh;
     }
 
     void OnCollisionEnter(Collision collision)

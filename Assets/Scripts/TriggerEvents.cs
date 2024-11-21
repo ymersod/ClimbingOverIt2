@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class col : MonoBehaviour
+public class TriggerEvents : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
