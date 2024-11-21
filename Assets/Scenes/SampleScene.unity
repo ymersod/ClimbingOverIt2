@@ -208,8 +208,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 6f82da932509ddd48a8413d4b068d181, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 59b77be12629e194c87a04e79e63fe4a, type: 3}
+  m_Resource: {fileID: 8300000, guid: 59b77be12629e194c87a04e79e63fe4a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1680,7 +1680,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1677423368427228116, guid: 90be2f68e50d97e46b2c17fdc0476afe, type: 3}
       propertyPath: timeSpeed
-      value: 1
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1677423368427228116, guid: 90be2f68e50d97e46b2c17fdc0476afe, type: 3}
       propertyPath: globalLight
