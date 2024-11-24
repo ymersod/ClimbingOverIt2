@@ -6,15 +6,44 @@ public class TriggerEvents : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<PhysicsHand>()._isColliding = true;
+            var physicsHand = other.gameObject.GetComponent<PhysicsHand>();
+            if (physicsHand != null)
+            {
+                physicsHand._isColliding = true;
+            }
+            else
+            {
+                var physicsController = other.gameObject.GetComponent<PhysicsController>();
+                if (physicsController != null)
+                {
+                    physicsController._isColliding = true;
+                }
+                else
+                {
+                    Debug.LogWarning($"Neither PhysicsHand nor PhysicsController found on {other.gameObject.name}");
+                }
+            }
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.CompareTag("Player"))
-        {
-            other.gameObject.GetComponent<PhysicsHand>()._isColliding = false;
-        }
+        var physicsHand = other.gameObject.GetComponent<PhysicsHand>();
+            if (physicsHand != null)
+            {
+                physicsHand._isColliding = false;
+            }
+            else
+            {
+                var physicsController = other.gameObject.GetComponent<PhysicsController>();
+                if (physicsController != null)
+                {
+                    physicsController._isColliding = false;
+                }
+                else
+                {
+                    Debug.LogWarning($"Neither PhysicsHand nor PhysicsController found on {other.gameObject.name}");
+                }
+            }
     }
 }
