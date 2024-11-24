@@ -11,7 +11,6 @@ public class PhysicsHand : MonoBehaviour
     [SerializeField] float rotDamping = 0.9f;
     [SerializeField] Rigidbody playerRigidbody;
     [SerializeField] Transform target;
-    [SerializeField] TrackedPoseDriver trackedPoseDriver;
     [SerializeField] SkinnedMeshRenderer skinnedMeshRenderer;
     [SerializeField] MeshCollider meshColliderTrigger;
     [SerializeField] MeshCollider meshCollider;
@@ -25,6 +24,7 @@ public class PhysicsHand : MonoBehaviour
     Rigidbody _rigidbody;
     MeshFilter _meshFilter;
     public bool _isColliding = false;
+    [SerializeField] bool renderMesh = true;
     
     void Start()
     {
@@ -35,20 +35,18 @@ public class PhysicsHand : MonoBehaviour
         _rigidbody.maxAngularVelocity = float.PositiveInfinity;
         _previousPosition = transform.position;
 
-        UpdateMesh();
+        UpdateMesh(renderMesh);
     }
 
+    void Update()
+    {
+         UpdateMesh(renderMesh);
+    }
     void FixedUpdate()
     {
-        UpdateMesh();
         PIDMovement();
         PIDRotation();
-        FixRotation();
         if (_isColliding) HookesLaw();
-    }
-
-    private void FixRotation()
-    {
     }
 
     void PIDMovement()
@@ -88,6 +86,7 @@ public class PhysicsHand : MonoBehaviour
     void HookesLaw()
     {
         Vector3 displacementFromResting = transform.position - target.position;
+        // Debug.Log(displacementFromResting);
         Vector3 force = displacementFromResting * climbForce;
         float drag = GetDrag();
         
@@ -105,24 +104,12 @@ public class PhysicsHand : MonoBehaviour
         return drag;
     }
 
-    void UpdateMesh()
+    void UpdateMesh(bool updateMeshFilter)
     {
         Mesh backedMesh = new Mesh();
         skinnedMeshRenderer.BakeMesh(backedMesh);
         meshCollider.sharedMesh = backedMesh;
         meshColliderTrigger.sharedMesh = backedMesh;
         _meshFilter.mesh = backedMesh;
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("aGGG");
-        _isColliding = true;
-    }
-
-    void OnCollisionExit(Collision collision)
-    {
-        Debug.Log("ahhh");
-        _isColliding = false;
     }
 }
