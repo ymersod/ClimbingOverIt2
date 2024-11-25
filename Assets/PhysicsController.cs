@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
@@ -21,6 +22,7 @@ public class PhysicsController : MonoBehaviour
     Vector3 _previousPosition;
     Rigidbody _rigidbody;
     public bool _isColliding = false;    
+    private float timer = 0f;
     void OnEnable()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -34,7 +36,10 @@ public class PhysicsController : MonoBehaviour
     {
         PIDMovement();
         PIDRotation();
-        if (_isColliding) HookesLaw();
+        timer -= Time.fixedDeltaTime;
+        if (_isColliding && timer <= 0) {
+            HookesLaw();
+        }
     }
 
     void PIDMovement()
@@ -75,6 +80,7 @@ public class PhysicsController : MonoBehaviour
     void HookesLaw()
     {
         Vector3 displacementFromResting = transform.position - target_transform.position;
+
         Vector3 force = displacementFromResting * climbForce;
         float drag = GetDrag();
         
@@ -91,4 +97,17 @@ public class PhysicsController : MonoBehaviour
         _previousPosition = transform.position;
         return drag;
     }
+
+    public void SetTimer()
+    {
+        timer = 1f;
+    }
+
+    // bool IsVelocityMaxDownward()
+    // {
+    //     Vector3 velocity = playerRigidbody.linearVelocity;
+    //     float downwardSpeed = Mathf.Abs(velocity.y);
+
+    //     return velocity.y < 0 && downwardSpeed > Mathf.Abs(velocity.x) && downwardSpeed > Mathf.Abs(velocity.z);
+    // }
 }
